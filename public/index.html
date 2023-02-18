@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
+      crossorigin="anonymous"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css"
+    />
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    
+    <style>
+
+      :root {
+        --bs-font-sans-serif: "DM Sans", sans-serif;
+        --bs-gray: #6c757d;
+      }
+
+
+    </style>
+
+    <title>Cameo</title>
+  </head>
+
+  <body>
+
+    <!-- Displays notifications on the web page -->
+    <div class="container">
+          <div class="alert alert-warning fixed-top" role="alert">
+            <span id="notification">⌛ Loading please wait...</span>
+          </div>
+    </div>
+
+
+   <!-- Navbar starts here -->
+  <nav class="navbar bg-success " >
+        <div class="container">
+          <span class="navbar-brand m-0 h4 fw-bold text-white">Cameo </span>
+          <span class="nav-link border rounded-pill bg-light">
+            <span id="balance">0</span>
+            cUSD
+          </span>
+        </div>
+      </nav>
+ <!-- Navbar ends here -->
+
+
+
+ <!-- Hero starts here -->
+ <div class="row bg-success text-white">
+    <div class="col-md-6 p-5">
+      <h4>Visualize the vision</h4>
+      <p>
+        Cameo is a marketplace where you can purchase Cameras with your tokens on  the celo blockchain.
+        <p>
+      <button class="btn btn-success shadow" data-bs-toggle="modal"
+          data-bs-target="#addModal">Add Camera</button>
+    </div>
+
+<div class="col-md-6">
+    <img style="height : 300px; width : 100%;"
+    src="https://c4.wallpaperflare.com/wallpaper/159/645/247/blur-the-camera-lens-camera-wallpaper-preview.jpg" />
+  </div>
+</div>
+ <!--Hero ends here -->
+
+
+<br />
+
+<!-- divs showing buttons used in switching views -->
+<div class="row my-4">
+  <div class="col-md-4"></div>
+
+  <div class="col-md-4">
+ <nav class="nav nav-pills" id="tabs">
+  <a class="nav-link active bg-success  showProducts"
+  id="productTab" aria-current="page" style="cursor : pointer;">Cameras</a>
+  <a class="nav-link showpurchased" id="purchasedTab" style="cursor : pointer;">Purchased Cameras</a>
+</nav>
+</div>
+<div class="col-md-4"></div>
+</div>
+<!-- end of div -->
+
+<br />
+
+
+ <!-- Start of container showing listed cameras -->
+        <main id="marketplace" class="row">
+          <div class="d-flex mt-3 justify-content-center">
+  <div class="spinner-border text-success spinner-border-sm" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+    <p class="mx-1">Fetching  cameras...</p>
+</div>
+        </main>
+
+        <main id="purchasedProduct" class="row d-none">
+          <div class="d-flex mt-3 justify-content-center">
+  <div class="spinner-border text-success spinner-border-sm" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+    <p class="mx-1">Fetching data ...</p>
+</div>
+        </main>
+
+
+      </div>
+<!-- End of container -->
+
+
+<!-- start of modal that shows cameras details -->
+<div
+      class="modal fade"
+      id="addModal1"
+      tabindex="-1"
+      aria-labelledby="newProductModalLabel"
+      aria-hidden="true"
+      data-bs-backdrop="static" data-bs-keyboard="false"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="newProductModalLabel">Details </h5>
+
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body" id="modalHeader">
+          </div>
+          </div>
+          </div>
+          </div>
+<!-- end of modal -->
+
+
+<!-- start of modal to list a cameras -->
+    <div
+      class="modal fade"
+      id="addModal"
+      tabindex="-1"
+      aria-labelledby="newProductModalLabel1"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="newProductModalLabel1">New </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="form-row">
+                <div class="col">
+                  <input
+                    type="text"
+                    id="cameraName"
+                    class="form-control mb-2"
+                    placeholder="camera name"
+                  />
+                </div>
+
+                <div class="col">
+                  <input
+                    type="text"
+                    id="cameraImgUrl"
+                    class="form-control mb-2"
+                    placeholder="camera image url"
+                  />
+                </div>
+
+                <div class="col">
+                  <input
+                    type="textarea"
+                    id="cameraDetails"
+                    class="form-control mb-2"
+                    placeholder="camera details"
+                  />
+                </div>
+
+
+
+                <div class="col">
+                  <input
+                    type="text"
+                    id="cameraLocation"
+                    class="form-control mb-2"
+                    placeholder="camera location"
+                  />
+                </div>
+
+                <div class="col">
+                  <input
+                    type="text"
+                    id="newPrice"
+                    class="form-control mb-2"
+                    placeholder="price"
+                  />
+                </div>
+
+
+                <div class="col">
+                  <input
+                    type="email"
+                    id="email"
+                    class="form-control mb-2"
+                    placeholder="email address"
+                  />
+                </div>
+
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-light border"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button
+              type="button"
+              class="btn btn-success"
+              data-bs-dismiss="modal"
+              id="listCameraBtn"
+            >
+              List Camera
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<!-- End of .container -->
+<!-- end of modal -->
+
+    <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+    crossorigin="anonymous"
+    ></script>
+    <script src="https://unpkg.com/ethereum-blockies@0.1.1/blockies.min.js"></script>
+  </body>
+  <!-- Remove the container if you want to extend the Footer to full width. -->
+<div class="container my-5">
+
+  <section class="">
+  <!-- Footer -->
+  <footer class="text-center text-white" style="background-color: #0a4275;">
+    <!-- Grid container -->
+    <div class="container p-4 pb-0">
+      <!-- Section: CTA -->
+      <section class="">
+        <p class="d-flex justify-content-center align-items-center">
+          <span class="me-3">Get  new product notifications</span>
+          <button type="button" class="btn btn-outline-light btn-rounded">
+            Sign up!
+          </button>
+        </p>
+      </section>
+      <!-- Section: CTA -->
+    </div>
+    <!-- Grid container -->
+
+    <!-- Copyright -->
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+      © 2023 Copyright:
+      <a class="text-white" href="https://mdbootstrap.com/">cameo.com</a>
+    </div>
+    <!-- Copyright -->
+  </footer>
+  <!-- Footer -->
+</section>
+  
+</div>
+<!-- End of .container -->
+</html>
