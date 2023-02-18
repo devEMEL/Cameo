@@ -12,11 +12,10 @@ interface IERC20Token {
   event Approval(address indexed owner, address indexed spender, uint256 value);
 }
 
-import "@openzeppelin/contracts/utils/Strings.sol";
 
 contract Cameo{
-   // Declaring variables.
-    uint internal listedCameraLength = 0;
+    // Declaring variables.
+    uint internal listedCameraLength;
     address internal cUsdTokenAddress = 0x874069Fa1Eb16D44d622F2e0Ca25eeA172369bC1;
     
     // Ceating a struct to store event details.
@@ -47,26 +46,27 @@ contract Cameo{
 
 
     // Function used to list a camera.
-    function listedCamera(string memory _cameraName, string memory _cameraImgUrl,
-    string memory _cameraDetails, string memory  _cameraLocation, uint _price, string memory _email) public {
+    function listedCamera(string memory _name, string memory _imgUrl,
+        string memory _details, string memory  _location, uint _price, string memory _email) public {
         
-        require(bytes(_cameraName).length > 0, "cameraName cannot be empty");
-        require(bytes(_cameraImgUrl).length > 0, "cameraImgUrl cannot be empty");
-        require(bytes(_cameraDetails).length > 0, "cameraDetails cannot be empty");
-        require(bytes(_cameraLocation).length > 0, "cameraLocation cannot be empty");
+        require(bytes(_name).length > 0, "cameraName cannot be empty");
+        require(bytes(_imgUrl).length > 0, "cameraImgUrl cannot be empty");
+        require(bytes(_details).length > 0, "cameraDetails cannot be empty");
+        require(bytes(_location).length > 0, "cameraLocation cannot be empty");
         require(bytes(_email).length > 0, "email cannot be empty");
+        require(_price > 0, "invalid price");
         
         listedCameras[listedCameraLength] = CameraInformation({
-        owner : payable(msg.sender),
-        cameraName: _cameraName,
-        cameraImgUrl: _cameraImgUrl, 
-        cameraDetails : _cameraDetails, 
-        cameraLocation: _cameraLocation,
-        price : _price,
-        email : _email
-      });
-     listedCameraLength++;
-}
+            owner : payable(msg.sender),
+            cameraName: _name,
+            cameraImgUrl: _imgUrl, 
+            cameraDetails : _details, 
+            cameraLocation: _location,
+            price : _price,
+            email : _email
+        });
+        listedCameraLength++;
+    }
 
 
 // Function used to fetch a lised camera by its id.
@@ -93,38 +93,34 @@ contract Cameo{
     }
 
 
-// function used to purchase a cameras by another farmer.
-function buyCamera(uint _index, address _owner, string memory _cameraName, string memory _cameraImgUrl,  uint _price, string memory _email) public payable  {
-        require(_price > 0, "Price should be greater than 0");
-        require(listedCameras[_index].owner != msg.sender, "you are already an owner of this camera");
-        require(IERC20Token(cUsdTokenAddress).balanceOf(msg.sender) >= listedCameras[_index].price, "Insufficient balance in cUSDT token");
+    // function used to purchase a cameras by another farmer.
+    function buyCamera(uint _index) public payable  {
+        require(listedCameras[_index].owner != msg.sender, "Owner can't buy");
         require(
-          IERC20Token(cUsdTokenAddress).transferFrom(
+            IERC20Token(cUsdTokenAddress).transferFrom(
             msg.sender,
             listedCameras[_index].owner,
             listedCameras[_index].price
-          ),
-          "Transfer failed."
+            ),
+            "Transfer failed."
         );
-        storePurchasedCameras(_owner, _cameraName, _cameraImgUrl, _price, _email);
+        storePurchasedCameras(listedCameras[_index].owner, listedCameras[_index].cameraName, listedCameras[_index].cameraImgUrl, listedCameras[_index].price, listedCameras[_index].email);
     }
 
-// function used to fetch cameras purchased already by you.
-function getPurchasedCameras() public view returns (PurchasedCameraInfo[] memory) {
-    return purchasedCameras[msg.sender];
-}
+    // function used to fetch cameras purchased already by you.
+    function getPurchasedCameras() public view returns (PurchasedCameraInfo[] memory) {
+        return purchasedCameras[msg.sender];
+    }
 
 
-// function used to store purchase camera by a particular owner.
-function storePurchasedCameras(address _owner,
- string memory _cameraName, string memory _cameraImgUrl, uint _price, string memory _email) internal {
-    purchasedCameras[msg.sender].push(PurchasedCameraInfo({purchasedFrom : _owner, 
-    cameraName : _cameraName, price : _price, email : _email, cameraImgUrl : _cameraImgUrl, timeStamp : block.timestamp }));
-}
+    // function used to store purchase camera by a particular owner.
+    function storePurchasedCameras(address _owner,
+    string memory _name, string memory _imgUrl, uint _price, string memory _email) internal {
+        purchasedCameras[msg.sender].push(PurchasedCameraInfo({purchasedFrom : _owner, 
+        cameraName : _name, price : _price, email : _email, cameraImgUrl : _imgUrl, timeStamp : block.timestamp }));
+    }
 
-
-
-// function used to get length of lised camera.
+    // function used to get length of lised camera.
     function getListedCameraLength() public view returns (uint) {
         return (listedCameraLength);
     }    
