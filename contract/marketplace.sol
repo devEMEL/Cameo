@@ -23,7 +23,6 @@ contract Cameo{
 
 
     //struct to hold camera details
-
     struct cameraInfo{
         address payable owner;
         string name;
@@ -47,15 +46,19 @@ struct purchasedCamera{
 
 
 //store all the listed cameras
-
 mapping(uint => cameraInfo) internal listedCameras;
 
 //store purchased cameras
 mapping(address => purchasedCamera[]) internal purchasedCameras;
 
+//modifier for onlyOwner
+modifier onlyOwner(uint _index){
+    require(msg.sender == listedCameras[_index].owner,"You are not authorized");
+    _;
+}
+
 
 //store a camera in the smart contract
-
 function listCamera(
     string calldata _name,
     string calldata _ImgUrl,
@@ -102,6 +105,7 @@ function  buyCamera(uint _index) public payable {
           "Transfer failed."
         );
 
+        camera.owner = payable(msg.sender);
         purchasedCameras[msg.sender].push(purchasedCamera(
             camera.owner,
             camera.name,
@@ -123,10 +127,15 @@ function cameraLength() public view returns(uint){
 }
 
 //Edit the camera price
-function EditPrice(uint _index, uint _price) public{
-    require(msg.sender == listedCameras[_index].owner,"You are not authorized");
+function EditPrice(uint _index, uint _price) public onlyOwner(_index){
     require(_price > 0,"Price can not be zero");
     listedCameras[_index].price = _price;
 }
+
+//delete camera from store
+function deleteCameera(uint _index) public onlyOwner(_index){
+    delete listedCameras[_index];
+}
+
 
 }
