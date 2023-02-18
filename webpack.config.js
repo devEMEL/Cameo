@@ -30,3 +30,10 @@ module.exports = {
     })
   ]
 }
+
+// "dev": "node index.js"
+// "build": "webpack --mode=production --node-env=production",
+// "build:dev": "webpack --mode=development --output public",
+// "build:prod": "webpack --mode=production --node-env=production",
+// "watch": "webpack --watch",
+// "serve": "webpack serve",
