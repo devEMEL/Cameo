@@ -104,8 +104,6 @@ function  buyCamera(uint _index) public payable {
           ),
           "Transfer failed."
         );
-
-        camera.owner = payable(msg.sender);
         purchasedCameras[msg.sender].push(purchasedCamera(
             camera.owner,
             camera.name,
@@ -114,6 +112,7 @@ function  buyCamera(uint _index) public payable {
             camera.price,
             camera.email
         ));
+        camera.owner = payable(msg.sender);
 }
 
 //Retreive cameras purchased by a specific buyer
