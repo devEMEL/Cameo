@@ -8,7 +8,8 @@
   "main": "index.js",
   "dependencies": {
     "@celo/contractkit": "^1.0.2",
-    "bignumber.js": "^9.0.1"
+    "bignumber.js": "^9.0.1",
+    "react-scripts": "^5.0.1"
   },
   "devDependencies": {
     "friendly-errors-webpack-plugin": "1.7.0",
@@ -20,8 +21,11 @@
   },
   "scripts": {
     "dev": "node index.js",
-    "build": "webpack",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d build"
   }
 }
