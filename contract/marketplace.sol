@@ -132,7 +132,7 @@ function EditPrice(uint _index, uint _price) public onlyOwner(_index){
 }
 
 //delete camera from store
-function deleteCameera(uint _index) public onlyOwner(_index){
+function deleteCamera(uint _index) public onlyOwner(_index){
     delete listedCameras[_index];
 }
 

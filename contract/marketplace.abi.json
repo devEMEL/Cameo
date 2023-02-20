@@ -7,34 +7,14 @@
                 "type": "uint256"
             },
             {
-                "internalType": "address",
-                "name": "_owner",
-                "type": "address"
-            },
-            {
-                "internalType": "string",
-                "name": "_cameraName",
-                "type": "string"
-            },
-            {
-                "internalType": "string",
-                "name": "_cameraImgUrl",
-                "type": "string"
-            },
-            {
                 "internalType": "uint256",
                 "name": "_price",
                 "type": "uint256"
-            },
-            {
-                "internalType": "string",
-                "name": "_email",
-                "type": "string"
             }
         ],
-        "name": "buyCamera",
+        "name": "EditPrice",
         "outputs": [],
-        "stateMutability": "payable",
+        "stateMutability": "nonpayable",
         "type": "function"
     },
     {
@@ -45,50 +25,14 @@
                 "type": "uint256"
             }
         ],
-        "name": "getListedCameraById",
-        "outputs": [
-            {
-                "internalType": "address",
-                "name": "",
-                "type": "address"
-            },
-            {
-                "internalType": "string",
-                "name": "",
-                "type": "string"
-            },
-            {
-                "internalType": "string",
-                "name": "",
-                "type": "string"
-            },
-            {
-                "internalType": "string",
-                "name": "",
-                "type": "string"
-            },
-            {
-                "internalType": "string",
-                "name": "",
-                "type": "string"
-            },
-            {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
-            },
-            {
-                "internalType": "string",
-                "name": "",
-                "type": "string"
-            }
-        ],
-        "stateMutability": "view",
+        "name": "buyCamera",
+        "outputs": [],
+        "stateMutability": "payable",
         "type": "function"
     },
     {
         "inputs": [],
-        "name": "getListedCameraLength",
+        "name": "cameraLength",
         "outputs": [
             {
                 "internalType": "uint256",
@@ -100,29 +44,42 @@
         "type": "function"
     },
     {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_index",
+                "type": "uint256"
+            }
+        ],
+        "name": "deleteCamera",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
         "inputs": [],
-        "name": "getPurchasedCameras",
+        "name": "getMyCameras",
         "outputs": [
             {
                 "components": [
                     {
                         "internalType": "address",
-                        "name": "purchasedFrom",
+                        "name": "From",
                         "type": "address"
                     },
                     {
                         "internalType": "string",
-                        "name": "cameraName",
+                        "name": "name",
                         "type": "string"
                     },
                     {
                         "internalType": "string",
-                        "name": "cameraImgUrl",
+                        "name": "imgUrl",
                         "type": "string"
                     },
                     {
                         "internalType": "uint256",
-                        "name": "timeStamp",
+                        "name": "timestamp",
                         "type": "uint256"
                     },
                     {
@@ -136,7 +93,7 @@
                         "type": "string"
                     }
                 ],
-                "internalType": "struct Cameo.PurchasedCameraInfo[]",
+                "internalType": "struct Cameo.purchasedCamera[]",
                 "name": "",
                 "type": "tuple[]"
             }
@@ -147,23 +104,79 @@
     {
         "inputs": [
             {
+                "internalType": "uint256",
+                "name": "_index",
+                "type": "uint256"
+            }
+        ],
+        "name": "getSpecificCamera",
+        "outputs": [
+            {
+                "components": [
+                    {
+                        "internalType": "address payable",
+                        "name": "owner",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "name",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "ImgUrl",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "Details",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "Location",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "price",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "email",
+                        "type": "string"
+                    }
+                ],
+                "internalType": "struct Cameo.cameraInfo",
+                "name": "",
+                "type": "tuple"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
                 "internalType": "string",
-                "name": "_cameraName",
+                "name": "_name",
                 "type": "string"
             },
             {
                 "internalType": "string",
-                "name": "_cameraImgUrl",
+                "name": "_ImgUrl",
                 "type": "string"
             },
             {
                 "internalType": "string",
-                "name": "_cameraDetails",
+                "name": "_details",
                 "type": "string"
             },
             {
                 "internalType": "string",
-                "name": "_cameraLocation",
+                "name": "_location",
                 "type": "string"
             },
             {
@@ -177,7 +190,7 @@
                 "type": "string"
             }
         ],
-        "name": "listedCamera",
+        "name": "listCamera",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"
