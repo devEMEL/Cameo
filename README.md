@@ -23,37 +23,28 @@ https://devemel.github.io/Cameo/
 
 ## Project Setup
 
-
-# Install
+### Install
 
 ```
-
 npm install
-
 ```
 
 or
 
 ```
-
 yarn install
-
 ```
 
 # Start
 
 ```
-
 npm run dev
-
 ```
 
 # Build
 
 ```
-
 npm run build
-
 ```
 # Usage
 1. Install the [CeloExtensionWallet](https://chrome.google.com/webstore/detail/celoextensionwallet/kkilomkmpmkbdnfelcpgckmpcaemjcdh?hl=en) from the google chrome store.
