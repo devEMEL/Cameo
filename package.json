@@ -19,6 +19,7 @@
     "webpack-dev-server": "^3.11.2"
   },
   "scripts": {
-    "dev": "node index.js"
+    "dev": "node index.js",
+    "build": "webpack"
   }
 }
