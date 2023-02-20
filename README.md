@@ -9,6 +9,7 @@ A decentralized camera marketplace  on celo blockchain where you can:
 
 ## Live Demo
 
+https://devemel.github.io/Cameo/
 
 ## Usage
 
