@@ -5,7 +5,9 @@ import marketplaceAbi from "../contract/marketplace.abi.json"
 import erc20Abi from "../contract/erc20.abi.json"
 
 const ERC20_DECIMALS = 18
-const MPContractAddress = "0x7f8F5a4715b5bbaA4ebD7eB6b07E51B1e1CF6603" // deployed smart contract address
+
+// const MPContractAddress = "0x7f8F5a4715b5bbaA4ebD7eB6b07E51B1e1CF6603" // deployed smart contract address
+const MPContractAddress = "0xc0782821b5D869C9d2942BbDc7d479682CC3bB04" // deployed smart contract address
 const cUSDContractAddress = "0x874069Fa1Eb16D44d622F2e0Ca25eeA172369bC1" //Erc20 contract address
 
 let kit //contractkit
@@ -62,7 +64,7 @@ const getBalance = async function () {
 // an async function used to get the listed cameras.
 const getListedCameras = async function() {
 // a smartcontract call used to get listed camera length.
-  const listedCameraLength = await contract.methods.getListedCameraLength().call()
+  const listedCameraLength = await contract.methods.cameraLength().call()
 
   //initializing listcamera array
   const _listedCameras = []
@@ -72,7 +74,8 @@ const getListedCameras = async function() {
     let camera = new Promise(async (resolve, reject) => {
 
   // a smartcontract call used to get listed camera by id.
-      let p = await contract.methods.getListedCameraById(i).call()
+  // getSpecificCamera
+      let p = await contract.methods.getSpecificCamera(i).call()
       resolve({
         index: i,
         owner: p[0],
@@ -207,11 +210,11 @@ document
 document.querySelector("#marketplace").addEventListener("click", async (e) => {
     if(e.target.className.includes("view")){
       const _id = e.target.id;
-      let listedSCamera;
+      let listedCamera;
 
 
       try {
-          listedCamera= await contract.methods.getListedCameraById(_id).call();
+          listedCamera= await contract.methods.getSpecificCamera(_id).call();
           let myModal = new bootstrap.Modal(document.getElementById('addModal1'), {backdrop: 'static', keyboard: false});
           myModal.show();
 
@@ -285,8 +288,10 @@ document.querySelector("#addModal1").addEventListener("click", async (e) => {
 
       notification(`⌛ Awaiting payment for "${listedCameras[index].cameraName}"...`)
       try {
-        const result = await contract.methods
-          .buyCamera(index, _owner, _cameraName, _cameraImgUrl, _price, _email)
+        // const result = 
+        await contract.methods
+          .buyCamera(index)
+          // .buyCamera(index, _owner, _cameraName, _cameraImgUrl, _price, _email)
           .send({ from: kit.defaultAccount })
         notification(`🎉 You successfully bought "${listedCameras[index].cameraName}".`)
         getListedCameras()
@@ -314,7 +319,7 @@ document.querySelector("#addModal1").addEventListener("click", async (e) => {
         notification(`⌛ Loading please wait ...`)
 
         try {
-           result = await contract.methods.getPurchasedCameras().call();
+           result = await contract.methods.getMyCameras().call();
 
            notificationOff()
           if (result.length) {

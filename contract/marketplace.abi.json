@@ -1,198 +1,191 @@
 [
-    {
-        "inputs": [
-            {
-                "internalType": "uint256",
-                "name": "_index",
-                "type": "uint256"
-            },
-            {
-                "internalType": "uint256",
-                "name": "_price",
-                "type": "uint256"
-            }
-        ],
-        "name": "EditPrice",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "uint256",
-                "name": "_index",
-                "type": "uint256"
-            }
-        ],
-        "name": "buyCamera",
-        "outputs": [],
-        "stateMutability": "payable",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "cameraLength",
-        "outputs": [
-            {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "uint256",
-                "name": "_index",
-                "type": "uint256"
-            }
-        ],
-        "name": "deleteCamera",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "getMyCameras",
-        "outputs": [
-            {
-                "components": [
-                    {
-                        "internalType": "address",
-                        "name": "From",
-                        "type": "address"
-                    },
-                    {
-                        "internalType": "string",
-                        "name": "name",
-                        "type": "string"
-                    },
-                    {
-                        "internalType": "string",
-                        "name": "imgUrl",
-                        "type": "string"
-                    },
-                    {
-                        "internalType": "uint256",
-                        "name": "timestamp",
-                        "type": "uint256"
-                    },
-                    {
-                        "internalType": "uint256",
-                        "name": "price",
-                        "type": "uint256"
-                    },
-                    {
-                        "internalType": "string",
-                        "name": "email",
-                        "type": "string"
-                    }
-                ],
-                "internalType": "struct Cameo.purchasedCamera[]",
-                "name": "",
-                "type": "tuple[]"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "uint256",
-                "name": "_index",
-                "type": "uint256"
-            }
-        ],
-        "name": "getSpecificCamera",
-        "outputs": [
-            {
-                "components": [
-                    {
-                        "internalType": "address payable",
-                        "name": "owner",
-                        "type": "address"
-                    },
-                    {
-                        "internalType": "string",
-                        "name": "name",
-                        "type": "string"
-                    },
-                    {
-                        "internalType": "string",
-                        "name": "ImgUrl",
-                        "type": "string"
-                    },
-                    {
-                        "internalType": "string",
-                        "name": "Details",
-                        "type": "string"
-                    },
-                    {
-                        "internalType": "string",
-                        "name": "Location",
-                        "type": "string"
-                    },
-                    {
-                        "internalType": "uint256",
-                        "name": "price",
-                        "type": "uint256"
-                    },
-                    {
-                        "internalType": "string",
-                        "name": "email",
-                        "type": "string"
-                    }
-                ],
-                "internalType": "struct Cameo.cameraInfo",
-                "name": "",
-                "type": "tuple"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "string",
-                "name": "_name",
-                "type": "string"
-            },
-            {
-                "internalType": "string",
-                "name": "_ImgUrl",
-                "type": "string"
-            },
-            {
-                "internalType": "string",
-                "name": "_details",
-                "type": "string"
-            },
-            {
-                "internalType": "string",
-                "name": "_location",
-                "type": "string"
-            },
-            {
-                "internalType": "uint256",
-                "name": "_price",
-                "type": "uint256"
-            },
-            {
-                "internalType": "string",
-                "name": "_email",
-                "type": "string"
-            }
-        ],
-        "name": "listCamera",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    }
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_index",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_price",
+				"type": "uint256"
+			}
+		],
+		"name": "EditPrice",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_index",
+				"type": "uint256"
+			}
+		],
+		"name": "buyCamera",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "cameraLength",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_index",
+				"type": "uint256"
+			}
+		],
+		"name": "deleteCamera",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "getMyCameras",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "address",
+						"name": "From",
+						"type": "address"
+					},
+					{
+						"internalType": "string",
+						"name": "name",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "imgUrl",
+						"type": "string"
+					},
+					{
+						"internalType": "uint256",
+						"name": "timestamp",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "price",
+						"type": "uint256"
+					},
+					{
+						"internalType": "string",
+						"name": "email",
+						"type": "string"
+					}
+				],
+				"internalType": "struct Cameo.purchasedCamera[]",
+				"name": "",
+				"type": "tuple[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_index",
+				"type": "uint256"
+			}
+		],
+		"name": "getSpecificCamera",
+		"outputs": [
+			{
+				"internalType": "address payable",
+				"name": "owner",
+				"type": "address"
+			},
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "_name",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_ImgUrl",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_details",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "_location",
+				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_price",
+				"type": "uint256"
+			},
+			{
+				"internalType": "string",
+				"name": "_email",
+				"type": "string"
+			}
+		],
+		"name": "listCamera",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	}
 ]

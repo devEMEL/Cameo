@@ -34,107 +34,125 @@ contract Cameo{
     }
 
 
-//store purchased cameras
-struct purchasedCamera{
-    address From;
-    string name;
-    string imgUrl;
-    uint timestamp;
-    uint price;
-    string email;
-}
+    //store purchased cameras
+    struct purchasedCamera{
+        address From;
+        string name;
+        string imgUrl;
+        uint timestamp;
+        uint price;
+        string email;
+    }
 
 
-//store all the listed cameras
-mapping(uint => cameraInfo) internal listedCameras;
+    //store all the listed cameras
+    mapping(uint => cameraInfo) internal listedCameras;
 
-//store purchased cameras
-mapping(address => purchasedCamera[]) internal purchasedCameras;
+    //store purchased cameras
+    mapping(address => purchasedCamera[]) internal purchasedCameras;
 
-//modifier for onlyOwner
-modifier onlyOwner(uint _index){
-    require(msg.sender == listedCameras[_index].owner,"You are not authorized");
-    _;
-}
+    //modifier for onlyOwner
+    modifier onlyOwner(uint _index){
+        require(msg.sender == listedCameras[_index].owner,"You are not authorized");
+        _;
+    }
 
 
-//store a camera in the smart contract
-function listCamera(
-    string calldata _name,
-    string calldata _ImgUrl,
-    string calldata _details,
-    string calldata _location,
-    uint _price,
-    string calldata _email
-) public {
-    require(bytes(_name).length > 0, "name cannot be empty");
-    require(bytes(_ImgUrl).length > 0, "url cannot be empty");
-    require(bytes(_details).length > 0, "details cannot be empty");
-    require(bytes(_location).length > 0, "location cannot be empty");
-    require(bytes(_email).length > 0, "email cannot be empty");
-    require(_price > 0, "Price is invalid");
+    //store a camera in the smart contract
+    function listCamera(
+        string calldata _name,
+        string calldata _ImgUrl,
+        string calldata _details,
+        string calldata _location,
+        uint _price,
+        string calldata _email
+    ) public {
+        require(bytes(_name).length > 0, "name cannot be empty");
+        require(bytes(_ImgUrl).length > 0, "url cannot be empty");
+        require(bytes(_details).length > 0, "details cannot be empty");
+        require(bytes(_location).length > 0, "location cannot be empty");
+        require(bytes(_email).length > 0, "email cannot be empty");
+        require(_price > 0, "Price is invalid");
 
-    listedCameras[listedCameraLength] = cameraInfo(
-        payable(msg.sender),
-        _name,
-        _ImgUrl,
-        _details,
-        _location,
-        _price,
-        _email
+        listedCameras[listedCameraLength] = cameraInfo(
+            payable(msg.sender),
+            _name,
+            _ImgUrl,
+            _details,
+            _location,
+            _price,
+            _email
+            );
+            listedCameraLength++;
+    }
+    
+    //get a camera with specific id
+    function getSpecificCamera(uint _index) public view returns(
+        address payable owner,
+        string memory,
+        string memory,
+        string memory,
+        string memory,
+        uint,
+        string memory
+    ){
+        return 
+        (
+            listedCameras[_index].owner,
+            listedCameras[_index].name,
+            listedCameras[_index].ImgUrl,
+            listedCameras[_index].Details,
+            listedCameras[_index].Location,
+            listedCameras[_index].price,
+            listedCameras[_index].email
+
         );
-        listedCameraLength++;
-}
- 
-//get a camera with specific id
-function getSpecificCamera(uint _index) public view returns(cameraInfo memory){
-    return listedCameras[_index];
-}
+    }
 
-//Buy a camera 
-function  buyCamera(uint _index) public payable {
-    cameraInfo memory camera = listedCameras[_index];
-    require(msg.sender != camera.owner,"You are already the owner");
+    //Buy a camera 
+    function  buyCamera(uint _index) public payable {
+        cameraInfo memory camera = listedCameras[_index];
+        require(msg.sender != camera.owner,"You are already the owner");
 
-    require(
-          IERC20Token(cUsdTokenAddress).transferFrom(
-            msg.sender,
-            camera.owner,
-            camera.price
-          ),
-          "Transfer failed."
-        );
-        purchasedCameras[msg.sender].push(purchasedCamera(
-            camera.owner,
-            camera.name,
-            camera.ImgUrl,
-            block.timestamp,
-            camera.price,
-            camera.email
-        ));
-        camera.owner = payable(msg.sender);
-}
+        require(
+            IERC20Token(cUsdTokenAddress).transferFrom(
+                msg.sender,
+                camera.owner,
+                camera.price
+            ),
+            "Transfer failed."
+            );
+            purchasedCameras[msg.sender].push(purchasedCamera(
+                camera.owner,
+                camera.name,
+                camera.ImgUrl,
+                block.timestamp,
+                camera.price,
+                camera.email
+            ));
+            camera.owner = payable(msg.sender);
+    }
 
-//Retreive cameras purchased by a specific buyer
-function getMyCameras() public view returns(purchasedCamera[] memory){
-    return purchasedCameras[msg.sender];
-}
+    //Retreive cameras purchased by a specific buyer
+    function getMyCameras() public view returns(purchasedCamera[] memory){
+        return purchasedCameras[msg.sender];
+    }
 
-//get listed camera length
-function cameraLength() public view returns(uint){
-    return listedCameraLength;
-}
+    //get listed camera length
+    function cameraLength() public view returns(uint){
+        return listedCameraLength;
+    }
 
-//Edit the camera price
-function EditPrice(uint _index, uint _price) public onlyOwner(_index){
-    require(_price > 0,"Price can not be zero");
-    listedCameras[_index].price = _price;
-}
+    //Edit the camera price
+    function EditPrice(uint _index, uint _price) public onlyOwner(_index){
+        require(_price > 0,"Price can not be zero");
+        listedCameras[_index].price = _price;
+    }
 
-//delete camera from store
-function deleteCamera(uint _index) public onlyOwner(_index){
-    delete listedCameras[_index];
-}
+    //delete camera from store
+    function deleteCamera(uint _index) public onlyOwner(_index){
+        delete listedCameras[_index];
+    }
 
 
 }
