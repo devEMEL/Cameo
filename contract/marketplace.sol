@@ -113,6 +113,7 @@ contract Cameo{
     function  buyCamera(uint _index) public payable {
         cameraInfo memory camera = listedCameras[_index];
         require(msg.sender != camera.owner,"You are already the owner");
+        require(IERC20Token(cUsdTokenAddress).balanceOf(msg.sender) >= listedCameras[_index].price, "Insufficient balance in cUSD token");
 
         require(
             IERC20Token(cUsdTokenAddress).transferFrom(
@@ -122,15 +123,34 @@ contract Cameo{
             ),
             "Transfer failed."
             );
-            purchasedCameras[msg.sender].push(purchasedCamera(
+
+            storePurchasedCamera(
                 camera.owner,
                 camera.name,
                 camera.ImgUrl,
-                block.timestamp,
                 camera.price,
                 camera.email
-            ));
-            camera.owner = payable(msg.sender);
+            );
+    }
+
+
+    // function used to store purchased camera
+    function storePurchasedCamera(
+        address payable _From,
+        string memory _name,
+        string memory _ImgUrl,
+        uint _price,
+        string memory _email
+    ) internal {
+
+            purchasedCameras[msg.sender].push(purchasedCamera(
+            _From,
+            _name,
+            _ImgUrl,
+            block.timestamp,
+            _price,
+            _email
+        ));
     }
 
     //Retreive cameras purchased by a specific buyer
