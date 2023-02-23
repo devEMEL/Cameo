@@ -143,16 +143,4 @@ contract Cameo{
         return listedCameraLength;
     }
 
-    //Edit the camera price
-    function EditPrice(uint _index, uint _price) public onlyOwner(_index){
-        require(_price > 0,"Price can not be zero");
-        listedCameras[_index].price = _price;
-    }
-
-    //delete camera from store
-    function deleteCamera(uint _index) public onlyOwner(_index){
-        delete listedCameras[_index];
-    }
-
-
 }

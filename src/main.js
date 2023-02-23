@@ -264,7 +264,6 @@ document.getElementById("modalHeader").innerHTML = `
 })
 
 
-
 // implements the buy functionalities on the modal
 document.querySelector("#addModal1").addEventListener("click", async (e) => {
     if (e.target.className.includes("buyBtn")) {
@@ -326,15 +325,15 @@ document.querySelector("#addModal1").addEventListener("click", async (e) => {
             document.getElementById(`purchasedProduct`).innerHTML = ``
         result.forEach((item) => {
           var timestamp= parseInt(item[3])
-console.log(result);
-// converts timestamp to milliseconds.
-var convertToMilliseconds = timestamp * 1000;
+          console.log(result);
+          // converts timestamp to milliseconds.
+          var convertToMilliseconds = timestamp * 1000;
 
-// create an object for it.
-var date = new Date(convertToMilliseconds);
+          // create an object for it.
+          var date = new Date(convertToMilliseconds);
 
 //template that shows purchased Cameras
-                document.getElementById(`purchasedProduct`).innerHTML +=
+                document.getElementById("purchasedProduct").innerHTML +=
                 `
                 <div class="card col-md-12  mb-4">
                 <div class="card-body row">
