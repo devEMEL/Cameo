@@ -6,7 +6,10 @@ import erc20Abi from "../contract/erc20.abi.json"
 
 const ERC20_DECIMALS = 18
 
-const MPContractAddress = "0x40Ee3a4129bA8E0BB8cB93A985E4e24935B6937c" // deployed smart contract address
+
+const MPContractAddress = "0x5D2b8bcd73D239008EF2D8C5282A3Bb5a1a56131" // deployed smart contract address (new)
+
+// const MPContractAddress = "0x40Ee3a4129bA8E0BB8cB93A985E4e24935B6937c" // deployed smart contract address (current)
 const cUSDContractAddress = "0x874069Fa1Eb16D44d622F2e0Ca25eeA172369bC1" //Erc20 contract address
 
 let kit //contractkit
@@ -64,6 +67,7 @@ const getBalance = async function () {
 const getListedCameras = async function() {
 // a smartcontract call used to get listed camera length.
   const listedCameraLength = await contract.methods.cameraLength().call()
+  console.log(listedCameraLength)
 
   //initializing listcamera array
   const _listedCameras = []
@@ -99,35 +103,39 @@ const getListedCameras = async function() {
 
 // function used to render a html template of listed camera.
 function renderProductTemplate() {
-  document.getElementById("marketplace").innerHTML = ""
-  if (listedCameras) {
-  listedCameras.forEach((camera) => {
-    const newDiv = document.createElement("div")
-    newDiv.className = "col-md-3"
-    newDiv.innerHTML = productTemplate(camera)
-    document.getElementById("marketplace").appendChild(newDiv)
-  })}
-}
 
-// function that create a html template of listed camera
-function productTemplate(camera) {
-  return `
- <div class="card mb-4">
-      <img class="card-img-top" src="${camera.cameraImgUrl}" alt="..." style="height : 150px;">
-  <div class="card-body text-left p-3 position-relative">
-        <div class="translate-middle-y position-absolute top-0 end-0"  id="${camera.index}">
-        ${identiconTemplate(camera.owner)}
-        </div>
-        <p class="card-title  fw-bold mt-2 text-uppercase">${camera.cameraName}</p>
-        <p class="mt-2 text-left fs-6">
-           ${new BigNumber(camera.price).shiftedBy(-ERC20_DECIMALS).toFixed(2)} cUSD
-        </p>
-        <p class="card-text mt-4">
-           <div> <a class="btn btn-md btn-success view"
-           id="${camera.index}" style="width:100%;">View More Details</a></div>
+  // let marketplace = document.getElementById("marketplace");
+  // marketplace.innerHTML = ""
+  let marketplace = $("#marketplace").empty();
+
+  if (listedCameras) {
+    for (let i = 0; i <= listedCameras.length; i++) {
+      if (listedCameras[i]["cameraName"].length) {
+        marketplace.append(
+          `
+          <div class="col-md-3">
+            <div class="card mb-4">
+              <img class="card-img-top" src="${listedCameras[i].cameraImgUrl}" alt="..." style="height : 150px;">
+              <div class="card-body text-left p-3 position-relative">
+                <div class="translate-middle-y position-absolute top-0 end-0"  id="${listedCameras[i].index}">
+                ${identiconTemplate(listedCameras[i].owner)}
+                </div>
+                <p class="card-title  fw-bold mt-2 text-uppercase">${listedCameras[i].cameraName}</p>
+                <p class="mt-2 text-left fs-6">
+                  ${new BigNumber(listedCameras[i].price).shiftedBy(-ERC20_DECIMALS).toFixed(2)} cUSD
+                </p>
+                <p class="card-text mt-4">
+                  <div> <a class="btn btn-md btn-success view"
+                  id="${listedCameras[i].index}" style="width:100%;">View More Details</a></div>
+              </div>
+            </div>
           </div>
-    </div>
-    `
+
+          `
+        )
+      }
+    }
+  }
 }
 
 // function  that creates an icon using the contract address of the owner
@@ -214,8 +222,9 @@ document.querySelector("#marketplace").addEventListener("click", async (e) => {
 
       try {
           listedCamera= await contract.methods.getSpecificCamera(_id).call();
-          let myModal = new bootstrap.Modal(document.getElementById('addModal1'), {backdrop: 'static', keyboard: false});
-          myModal.show();
+          // let myModal = new bootstrap.Modal(document.getElementById('addModal1'), {backdrop: 'static', keyboard: false});
+          // myModal.show();
+          $("#addModal1").modal('show');
 
 
 // shows //template that shows purchased Cameras
@@ -244,6 +253,11 @@ document.getElementById("modalHeader").innerHTML = `
         </p>
 
         <div class="d-grid gap-2">
+          <a class="btn btn-lg text-white bg-success deleteBtn fs-6 p-3"
+          id=${_id}
+          >
+            Delete Camera
+          </a>
           <a class="btn btn-lg text-white bg-success buyBtn fs-6 p-3"
           id=${_id}
           >
@@ -258,6 +272,34 @@ document.getElementById("modalHeader").innerHTML = `
     catch (error) {
       notification(`⚠️ ${error}.`)
     }
+    notificationOff()
+  }
+})
+
+// implements the buy functionalities on the modal
+document.querySelector("#addModal1").addEventListener("click", async (e) => {
+  if (e.target.className.includes("deleteBtn")) {
+
+    // declaring variables for the smartcontract parameters
+    const index = e.target.id
+    console.log(index);
+
+    notification(`⌛ Deleting "${listedCameras[index].cameraName}"...`)
+    try {
+      // const result = 
+      await contract.methods
+        .deleteCamera(index)
+        .send({ from: kit.defaultAccount })
+      notification(`🎉 You successfully deleted "${listedCameras[index].cameraName}".`)
+      getListedCameras()
+
+      // Remove modal
+      $("#addModal1").modal('hide');
+
+    } catch (error) {
+      notification(`⚠️ ${error}.`)
+    }
+
     notificationOff()
   }
 })
@@ -292,8 +334,12 @@ document.querySelector("#addModal1").addEventListener("click", async (e) => {
           // .buyCamera(index, _owner, _cameraName, _cameraImgUrl, _price, _email)
           .send({ from: kit.defaultAccount })
         notification(`🎉 You successfully bought "${listedCameras[index].cameraName}".`)
+
+        // Remove modal
+        $("#addModal1").modal('hide');
         getListedCameras()
         getBalance()
+
       } catch (error) {
         notification(`⚠️ ${error}.`)
       }

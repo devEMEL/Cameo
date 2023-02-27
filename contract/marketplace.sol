@@ -163,4 +163,9 @@ contract Cameo{
         return listedCameraLength;
     }
 
+    // delete camera
+    function deleteCamera(uint _index) public onlyOwner(_index) {
+        delete listedCameras[_index];
+    }
+
 }
