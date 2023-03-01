@@ -4,8 +4,9 @@
 A decentralized camera marketplace  on celo blockchain where you can:
 1. List a camera on the celo blockchain.
 2. View the details of that camera.
-3. Buy camera of your intrest .
-4. View all cameras purchased by you.
+3. Buy a camera of your choice .
+4. Delete a camera you listed.
+4. Edit the price of a camera you listed.
 
 ## Live Demo
 
