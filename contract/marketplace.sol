@@ -72,7 +72,7 @@ contract Cameo{
     }
     
     //get a camera with specific id
-    function getSpecificCamera(uint _index) public view returns(
+    function readCamera(uint _index) public view returns(
         address payable owner,
         string memory,
         string memory,
