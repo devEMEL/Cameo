@@ -94,7 +94,7 @@ function renderProducts() {
       if (cameras[i]["name"].length) {
         marketplace.append(
           `
-          <div class="col-md-3">
+          <div class="col-md-4">
             <div class="card mb-4">
               <img class="card-img-top" src="${cameras[i].image}" alt="..." style="height : 150px;">
               <div class="position-absolute top-0 end-0 bg-warning mt-4 px-2 py-1 rounded-start">
@@ -111,9 +111,10 @@ function renderProducts() {
                 <p class="mt-2 text-left fs-6">
                   ${cameras[i].description}
                 </p>
-                <p class="mt-2 text-left fs-6">
+                <i class="bi bi-geo-alt-fill"></i>
+                <span class="mt-2 text-left fs-6">
                   ${cameras[i].location}
-                </p>
+                </span>
                 <div class="d-grid gap-2">
                   <a class="btn btn-lg btn-dark buyBtn fs-6 p-3" id=${cameras[i].index}>
                       Buy for ${cameras[i].price.shiftedBy(-ERC20_DECIMALS).toFixed(2)} cUSD
