@@ -12,7 +12,8 @@ const cUSDContractAddress = "0x874069Fa1Eb16D44d622F2e0Ca25eeA172369bC1"
 
 let kit
 let contract
-let cameras = []
+// let newPrice = 0;
+let cameras = [];
 
 const connectCeloWallet = async function () {
   if (window.celo) {
@@ -121,7 +122,7 @@ function renderProducts() {
                   <a class="btn btn-lg btn-dark deleteBtn fs-6 p-3" id=${cameras[i].index}>Delete Camera
                   </a>
                   <div>
-                    <span><input type="number" id="newPrice" style="width: 40%" /></span>
+                    <span><input type="text" id="newPrice" style="width: 40%" /></span>
                     <a class="btn btn-dark editBtn" id=${cameras[i].index}>Edit Price
                     </a>
                   </div>
@@ -220,11 +221,13 @@ document.querySelector("#marketplace").addEventListener("click", async (e) => {
     } catch (error) {
       notification(`⚠️ ${error}.`)
     }
+
+    notificationOff()
   }
 })  
 
 // implements the delete functionalities of a listed camera
-document.querySelector("#addModal1").addEventListener("click", async (e) => {
+document.querySelector("#marketplace").addEventListener("click", async (e) => {
   if (e.target.className.includes("deleteBtn")) {
 
     // declaring variables for the smartcontract parameters
@@ -245,11 +248,12 @@ document.querySelector("#addModal1").addEventListener("click", async (e) => {
     }
 
     notificationOff()
+ 
   }
 })
 
 // implements the edit functionalities of a listed camera
-document.querySelector("#addModal1").addEventListener("click", async (e) => {
+document.querySelector("#marketplace").addEventListener("click", async (e) => {
   if (e.target.className.includes("editBtn")) {
 
     // declaring variables for the smartcontract parameters
@@ -259,7 +263,8 @@ document.querySelector("#addModal1").addEventListener("click", async (e) => {
     notification(`⌛ Editing "${cameras[index].name}"...`)
     try {
       // const result = 
-      let price = new BigNumber(document.getElementById("newPrice").value)
+      let price = new BigNumber(document.getElementById("newPrice").value).shiftedBy(ERC20_DECIMALS)
+      .toString()
       await contract.methods
         .editPrice(index, price)
         .send({ from: kit.defaultAccount })
@@ -273,3 +278,5 @@ document.querySelector("#addModal1").addEventListener("click", async (e) => {
     notificationOff()
   }
 })
+
+
