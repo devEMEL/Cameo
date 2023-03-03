@@ -74,16 +74,6 @@ const getProducts = async function() {
   renderProducts()
 }
 
-// function renderProducts() {
-//   document.getElementById("marketplace").innerHTML = ""
-//   cameras.forEach((_camera) => {
-//     const newDiv = document.createElement("div")
-//     newDiv.className = "col-md-3"
-//     newDiv.innerHTML = productTemplate(_camera)
-//     document.getElementById("marketplace").appendChild(newDiv)
-//   })
-// }
-
 function renderProducts() {
 
   let marketplace = $("#marketplace");
