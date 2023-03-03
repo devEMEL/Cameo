@@ -134,6 +134,51 @@
       </div>
 <!-- End of container -->
 
+<!-- modal to edit price -->
+    <div
+      class="modal fade"
+      id="addModalForEdit"
+      tabindex="-1"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-body">
+            <form>
+              <div class="form-row">
+                <div class="col">
+                  <input
+                    type="text"
+                    id="newPrice"
+                    class="form-control mb-2"
+                    placeholder="New Price"
+                  />
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-light border"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button
+              type="button"
+              class="btn btn-dark"
+              data-bs-dismiss="modal"
+              id="editCameraBtn"
+            >
+              Edit Price
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
 
 <!-- start of modal to list a cameras -->
     <div
