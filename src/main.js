@@ -254,9 +254,8 @@ document.querySelector("#marketplace").addEventListener("click", async (e) => {
 
 document.querySelector("#marketplace").addEventListener("click", async (e) => {
   if (e.target.className.includes("editBtn")) {
-    console.log('okal');
+
     // open modal with jquery
-    // jQuery.noConflict(); 
     jQuery('#addModalForEdit').modal('show'); 
 
     // store id in the local storage
@@ -272,11 +271,9 @@ document
 
     let price = new BigNumber(document.getElementById("newPrice").value).shiftedBy(ERC20_DECIMALS)
       .toString()
-    console.log(price);
 
     // Get the index from the local storage
     const index = localStorage.getItem("indexLS")
-    console.log(index);
 
     notification(`⌛ Editing "${cameras[index].name}"...`)
     try {
