@@ -12,6 +12,15 @@ A decentralized camera marketplace  on celo blockchain where you can:
 
 https://devemel.github.io/Cameo/
 
+#### screenshots
+
+![Screenshot from 2023-03-03 12-49-23](https://user-images.githubusercontent.com/61978427/222713724-5e4e7453-f0df-4ee6-8666-ef973d678f58.png)
+
+
+![Screenshot from 2023-03-03 12-49-33](https://user-images.githubusercontent.com/61978427/222713716-7db73241-6c10-40a3-8cf4-f5c28148e0c7.png)
+
+![Screenshot from 2023-03-03 12-49-45](https://user-images.githubusercontent.com/61978427/222713704-25b4b1e0-3b8a-4c10-ba81-216cfb238d2a.png)
+
 ## Usage
 
 ### Requirements
