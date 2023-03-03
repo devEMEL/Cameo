@@ -259,7 +259,7 @@ document.querySelector("#marketplace").addEventListener("click", async (e) => {
     // jQuery.noConflict(); 
     jQuery('#addModalForEdit').modal('show'); 
 
-    // declaring variables for the smartcontract parameters
+    // store id in the local storage
     localStorage.setItem("indexLS", e.target.id)
   
 
