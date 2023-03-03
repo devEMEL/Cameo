@@ -122,8 +122,7 @@ function renderProducts() {
                       
                   <a class="btn btn-lg btn-dark deleteBtn fs-6 p-3" id=${cameras[i].index}>Delete Camera
                   </a>
-                  <a class="btn btn-dark editBtn" id=${cameras[i].index} data-bs-toggle="modal"
-                  data-bs-target="#addModalForEdit">Edit Price
+                  <a class="btn btn-dark editBtn" id=${cameras[i].index}>Edit Price
                   </a>
                   
                 </div>
@@ -253,6 +252,19 @@ document.querySelector("#marketplace").addEventListener("click", async (e) => {
   }
 })
 
+document.querySelector("#marketplace").addEventListener("click", async (e) => {
+  if (e.target.className.includes("editBtn")) {
+    console.log('okal');
+    // open modal with jquery
+    // jQuery.noConflict(); 
+    jQuery('#addModalForEdit').modal('show'); 
+
+    // declaring variables for the smartcontract parameters
+    localStorage.setItem("indexLS", e.target.id)
+  
+
+  }
+})
 
 document
   .querySelector("#editCameraBtn")
@@ -262,8 +274,8 @@ document
       .toString()
     console.log(price);
 
-    //  declaring variables for the smartcontract parameters
-    const index = e.target.id
+    // Get the index from the local storage
+    const index = localStorage.getItem("indexLS")
     console.log(index);
 
     notification(`⌛ Editing "${cameras[index].name}"...`)
