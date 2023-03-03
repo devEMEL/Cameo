@@ -262,6 +262,10 @@ document
       .toString()
     console.log(price);
 
+    //  declaring variables for the smartcontract parameters
+    const index = e.target.id
+    console.log(index);
+
     notification(`⌛ Editing "${cameras[index].name}"...`)
     try {
 
